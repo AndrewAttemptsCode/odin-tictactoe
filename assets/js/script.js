@@ -5,7 +5,7 @@
 // the displayController etc.) then wrap the factory inside
 // an IIFE (module pattern)
 
-const gameBoard = (function() {
+const GameBoard = (function() {
 
     const createBoard = function() {
         const rows = 3;
@@ -24,5 +24,5 @@ const gameBoard = (function() {
     return {createBoard};
 })();
 
-const board = gameBoard.createBoard();
+const board = GameBoard.createBoard();
 console.log(board);
