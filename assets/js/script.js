@@ -28,9 +28,37 @@ const GameBoard = (function() {
             return true;
         }
         return false;
-    }
+    };
 
-    return {createBoard, getBoard, placeMarker};
+    const checkWin = function(marker) {
+        for (let row = 0; row < 3; row++) {
+            if (board[row].every(cell => cell === marker)) {
+                return true;
+            }
+        }
+
+        for (let col = 0; col < 3; col++) {
+            if (board.every(row => row[col] === marker)) {
+                return true;
+            }
+        }
+
+        if (
+            (board[0][0] === marker && board[1][1] === marker && board[2][2] === marker) ||
+            (board[0][2] === marker && board[1][1] === marker && board[2][0] === marker) 
+        ) {
+            return true;
+        }
+
+    return false;
+
+    };
+
+    const checkDraw = function() {
+       return board.every(row => row.every(cell => cell !=""));
+    };
+
+    return {createBoard, getBoard, placeMarker, checkWin, checkDraw};
 })();
 
 
@@ -55,5 +83,15 @@ console.log(player1);
 console.log(player2);
 
 GameBoard.placeMarker(0, 0, player1.marker);
+GameBoard.placeMarker(0, 1, player1.marker);
+GameBoard.placeMarker(0, 2, player1.marker);
 GameBoard.placeMarker(1, 1, player2.marker);
+GameBoard.placeMarker(2, 0, player2.marker);
 console.log(GameBoard.getBoard());
+
+const player1Wins = GameBoard.checkWin(player1.marker);
+const player2Wins = GameBoard.checkWin(player2.marker);
+const isDraw = GameBoard.checkDraw();
+console.log(`Player 1 wins: ${player1Wins}`);
+console.log(`Player 2 wins: ${player2Wins}`);
+console.log(`It's a draw: ${isDraw}`);
