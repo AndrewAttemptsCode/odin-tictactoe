@@ -6,23 +6,21 @@
 // an IIFE (module pattern)
 
 const GameBoard = (function() {
+    const board = [];
 
     const createBoard = function() {
         const rows = 3;
         const columns = 3;
-        const board = [];
-
+        
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-                board[i].push("test");
+                board[i].push("");
             }
         }
-        return board;
     };
 
-    return {createBoard};
-})();
+    const getBoard = () => board;
 
-const board = GameBoard.createBoard();
-console.log(board);
+    return {createBoard, getBoard};
+})();
