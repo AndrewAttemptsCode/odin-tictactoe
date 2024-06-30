@@ -22,7 +22,15 @@ const GameBoard = (function() {
 
     const getBoard = () => board;
 
-    return {createBoard, getBoard};
+    const placeMarker = function(row, col, marker) {
+        if (board[row][col] === "") {
+            board[row][col] = marker;
+            return true;
+        }
+        return false;
+    }
+
+    return {createBoard, getBoard, placeMarker};
 })();
 
 
@@ -45,3 +53,7 @@ const player2 = PlayerModule.createPlayer("Player 2", "O");
 
 console.log(player1);
 console.log(player2);
+
+GameBoard.placeMarker(0, 0, player1.marker);
+GameBoard.placeMarker(1, 1, player2.marker);
+console.log(GameBoard.getBoard());
