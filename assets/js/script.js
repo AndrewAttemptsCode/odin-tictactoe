@@ -1,10 +1,3 @@
-// store the gameboard as an array inside of a Gameboard object
-
-// tuck as much as you can inside factories.
-// single instance of something (e.g. the gameboard,
-// the displayController etc.) then wrap the factory inside
-// an IIFE (module pattern)
-
 const GameBoard = (function() {
     const board = [];
 
@@ -152,5 +145,7 @@ const GameController = (function() {
 })();
 
 
-// Test output code
-GameController.startGame();
+document.addEventListener("DOMContentLoaded", () => {
+    displayController.bindEvents();
+    GameController.startGame();
+});
