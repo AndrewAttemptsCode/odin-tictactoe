@@ -55,7 +55,7 @@ const GameBoard = (function() {
     };
 
     const checkDraw = function() {
-       return board.every(row => row.every(cell => cell !=""));
+       return board.every(row => row.every(cell => cell !="--"));
     };
 
     return {createBoard, getBoard, placeMarker, checkWin, checkDraw};
