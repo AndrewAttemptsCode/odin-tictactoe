@@ -73,18 +73,27 @@ const PlayerModule = (function() {
 
 
 const displayController = (function() {
+    const boardElement = document.querySelector("#board");
+    const messageElement = document.querySelector("#message");
 
     const renderBoard = function() {
+        boardElement.innerHTML = "";
+
         const board = GameBoard.getBoard();
-        console.clear();
-        for (let row = 0; row < 3; row++) {
-            console.log(board[row].join("|"));
-            if (row < 2) console.log("--+---+--");
+        for (let row = 0; row < 3; row ++) {
+            for (let col = 0; col < 3; col ++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                cell.textContent = board[row][col];
+                boardElement.appendChild(cell);
+            }
         }
     };
 
     const showMessage = function(message) {
-        console.log(message);
+        messageElement.textContent = message;
     };
 
     return {renderBoard, showMessage};
