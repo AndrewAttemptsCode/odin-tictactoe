@@ -96,7 +96,20 @@ const displayController = (function() {
         messageElement.textContent = message;
     };
 
-    return {renderBoard, showMessage};
+    const bindEvents = function() {
+        boardElement.addEventListener("click", handleCellClick);
+    };
+
+    const handleCellClick = function(event) {
+        const target = event.target;
+        if (target.classList.contains("cell")) {
+            const row = target.dataset.row;
+            const col = target.dataset.col;
+            GameController.playRound(row, col);
+        }
+    };
+
+    return {renderBoard, showMessage, bindEvents};
 })();
 
 const GameController = (function() {
