@@ -90,13 +90,30 @@ const displayController = (function() {
     return {renderBoard, showMessage};
 })();
 
+const GameController = (function() {
+    let currentPlayer;
+    let player1;
+    let player2;
+
+    const startGame = function() {
+        GameBoard.createBoard();
+        player1 = PlayerModule.createPlayer("Player 1", "X");
+        player2 = PlayerModule.createPlayer("Player 2", "O");
+        currentPlayer = player1;
+        displayController.renderBoard();
+        displayController.showMessage(`${currentPlayer.name}'s turn.`)
+    };
+
+    
+
+})();
+
 
 // Test output code
 GameBoard.createBoard();
 console.log(GameBoard.getBoard());
 
-const player1 = PlayerModule.createPlayer("Player 1", "X");
-const player2 = PlayerModule.createPlayer("Player 2", "O");
+
 
 console.log(player1);
 console.log(player2);
@@ -115,4 +132,4 @@ console.log(`Player 1 wins: ${player1Wins}`);
 console.log(`Player 2 wins: ${player2Wins}`);
 console.log(`It's a draw: ${isDraw}`);
 
-displayController.renderBoard();
+// displayController.renderBoard();
