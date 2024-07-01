@@ -72,6 +72,25 @@ const PlayerModule = (function() {
 })();
 
 
+const displayController = (function() {
+
+    const renderBoard = function() {
+        const board = GameBoard.getBoard();
+        console.clear();
+        for (let row = 0; row < 3; row++) {
+            console.log(board[row].join("|"));
+            if (row < 2) console.log("--+---+--");
+        }
+    };
+
+    const showMessage = function(message) {
+        console.log(message);
+    };
+
+    return {renderBoard, showMessage};
+})();
+
+
 // Test output code
 GameBoard.createBoard();
 console.log(GameBoard.getBoard());
@@ -82,12 +101,12 @@ const player2 = PlayerModule.createPlayer("Player 2", "O");
 console.log(player1);
 console.log(player2);
 
-GameBoard.placeMarker(0, 0, player1.marker);
-GameBoard.placeMarker(0, 1, player1.marker);
-GameBoard.placeMarker(0, 2, player1.marker);
-GameBoard.placeMarker(1, 1, player2.marker);
-GameBoard.placeMarker(2, 0, player2.marker);
-console.log(GameBoard.getBoard());
+// GameBoard.placeMarker(0, 0, player1.marker);
+// GameBoard.placeMarker(0, 1, player1.marker);
+// GameBoard.placeMarker(0, 2, player1.marker);
+// GameBoard.placeMarker(1, 1, player2.marker);
+// GameBoard.placeMarker(2, 0, player2.marker);
+// console.log(GameBoard.getBoard());
 
 const player1Wins = GameBoard.checkWin(player1.marker);
 const player2Wins = GameBoard.checkWin(player2.marker);
@@ -95,3 +114,5 @@ const isDraw = GameBoard.checkDraw();
 console.log(`Player 1 wins: ${player1Wins}`);
 console.log(`Player 2 wins: ${player2Wins}`);
 console.log(`It's a draw: ${isDraw}`);
+
+displayController.renderBoard();
