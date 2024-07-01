@@ -104,7 +104,9 @@ const GameController = (function() {
         displayController.showMessage(`${currentPlayer.name}'s turn.`)
     };
 
-    
+    const switchPlayer = function() {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    };
 
 })();
 
