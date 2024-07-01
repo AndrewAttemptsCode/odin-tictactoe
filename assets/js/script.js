@@ -154,4 +154,7 @@ const GameController = (function() {
 
 document.addEventListener("DOMContentLoaded", () => {
     GameController.startGame();
+
+    const resetGame = document.querySelector("#restart");
+    resetGame.addEventListener("click", () => GameController.startGame());
 });
