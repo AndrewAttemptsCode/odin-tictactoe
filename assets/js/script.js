@@ -15,7 +15,7 @@ const GameBoard = (function() {
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < columns; j++) {
-                board[i].push("");
+                board[i].push("--");
             }
         }
     };
@@ -23,7 +23,7 @@ const GameBoard = (function() {
     const getBoard = () => board;
 
     const placeMarker = function(row, col, marker) {
-        if (board[row][col] === "") {
+        if (board[row][col] === "--") {
             board[row][col] = marker;
             return true;
         }
@@ -108,30 +108,27 @@ const GameController = (function() {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
 
+    const playRound = function(row, col) {
+        if (GameBoard.placeMarker(row, col, currentPlayer.marker)) {
+            displayController.renderBoard();
+            if (GameBoard.checkWin(currentPlayer.marker)) {
+                displayController.showMessage(`${currentPlayer.name} wins!`);
+                return;
+            } else if (GameBoard.checkDraw()) {
+                displayController.showMessage(`It's a draw!`);
+                return;
+            }
+            switchPlayer();
+            displayController.showMessage(`${currentPlayer.name}'s turn.`);
+        } else {
+            displayController.showMessage(`Grid already taken. ${currentPlayer.name}, try again.`);
+        }
+    };
+
+    return {startGame, playRound};
+
 })();
 
 
 // Test output code
-GameBoard.createBoard();
-console.log(GameBoard.getBoard());
-
-
-
-console.log(player1);
-console.log(player2);
-
-// GameBoard.placeMarker(0, 0, player1.marker);
-// GameBoard.placeMarker(0, 1, player1.marker);
-// GameBoard.placeMarker(0, 2, player1.marker);
-// GameBoard.placeMarker(1, 1, player2.marker);
-// GameBoard.placeMarker(2, 0, player2.marker);
-// console.log(GameBoard.getBoard());
-
-const player1Wins = GameBoard.checkWin(player1.marker);
-const player2Wins = GameBoard.checkWin(player2.marker);
-const isDraw = GameBoard.checkDraw();
-console.log(`Player 1 wins: ${player1Wins}`);
-console.log(`Player 2 wins: ${player2Wins}`);
-console.log(`It's a draw: ${isDraw}`);
-
-// displayController.renderBoard();
+GameController.startGame();
