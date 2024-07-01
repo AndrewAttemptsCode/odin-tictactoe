@@ -93,6 +93,10 @@ const displayController = (function() {
         boardElement.addEventListener("click", handleCellClick);
     };
 
+    const unbindEvents = function() {
+        boardElement.removeEventListener("click", handleCellClick);
+    }
+
     const handleCellClick = function(event) {
         const target = event.target;
         if (target.classList.contains("cell")) {
@@ -102,7 +106,7 @@ const displayController = (function() {
         }
     };
 
-    return {renderBoard, showMessage, bindEvents};
+    return {renderBoard, showMessage, bindEvents, unbindEvents};
 })();
 
 const GameController = (function() {
@@ -117,6 +121,7 @@ const GameController = (function() {
         currentPlayer = player1;
         displayController.renderBoard();
         displayController.showMessage(`${currentPlayer.name}'s turn.`)
+        displayController.bindEvents();
     };
 
     const switchPlayer = function() {
@@ -128,9 +133,11 @@ const GameController = (function() {
             displayController.renderBoard();
             if (GameBoard.checkWin(currentPlayer.marker)) {
                 displayController.showMessage(`${currentPlayer.name} wins!`);
+                displayController.unbindEvents();
                 return;
             } else if (GameBoard.checkDraw()) {
                 displayController.showMessage(`It's a draw!`);
+                displayController.unbindEvents();
                 return;
             }
             switchPlayer();
@@ -146,6 +153,5 @@ const GameController = (function() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    displayController.bindEvents();
     GameController.startGame();
 });
