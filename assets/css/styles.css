@@ -145,3 +145,38 @@ body {
 .button-container button[type="submit"] {
     margin-bottom: 10px;
 }
+
+#player-form input {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+#player-form .input-wrapper1,
+#player-form .input-wrapper2 {
+    position: relative;
+}
+
+#player-form .input-wrapper1 input,
+#player-form .input-wrapper2 input {
+    padding-left: 30px;
+}
+
+#player-form .input-wrapper1::before,
+#player-form .input-wrapper2::before {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#player-form .input-wrapper1::before {
+    content: "X";
+    color:#ef4444
+}
+
+#player-form .input-wrapper2::before {
+    content: "O";
+    color: #06b6d4;
+}
