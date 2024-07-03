@@ -91,6 +91,10 @@ const displayController = (function() {
 
     const bindEvents = function() {
         boardElement.addEventListener("click", handleCellClick);
+        document.querySelector("#restart").addEventListener("click", GameController.startGame);
+        document.querySelector("#player-info").addEventListener("click", showPlayerDialog);
+        document.querySelector("#close-dialog").addEventListener("click", closePlayerDialog);
+        document.querySelector("#player-form").addEventListener("submit", handleFormSubmit);
     };
 
     const unbindEvents = function() {
@@ -104,6 +108,19 @@ const displayController = (function() {
             const col = target.dataset.col;
             GameController.playRound(row, col);
         }
+    };
+
+    const showPlayerDialog = function() {
+        document.querySelector("#player-dialog").showModal();
+    };
+
+    const closePlayerDialog = function() {
+        document.querySelector("#player-dialog").close();
+    };
+
+    const handleFormSubmit = function(event) {
+        event.preventDefault();
+        GameController.startGame();
     };
 
     return {renderBoard, showMessage, bindEvents, unbindEvents};
@@ -161,27 +178,4 @@ const GameController = (function() {
 
 document.addEventListener("DOMContentLoaded", () => {
     GameController.startGame();
-
-    const resetGame = document.querySelector("#restart");
-    resetGame.addEventListener("click", () => GameController.startGame());
-
-    const playerInfo = document.querySelector("#player-info");
-    const playerDialog = document.querySelector("#player-dialog");
-
-    playerInfo.addEventListener("click", () => {
-        playerDialog.showModal();
-    })
-
-    const cancelForm = document.querySelector("#close-dialog");
-    cancelForm.addEventListener("click", () => {
-        playerDialog.close();
-    })
 });
-
-
-const playerForm = document.querySelector("#player-form");
-
-playerForm.addEventListener("submit", () => {
-    GameController.startGame();
-});
-
