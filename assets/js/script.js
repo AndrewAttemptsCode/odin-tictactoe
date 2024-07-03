@@ -80,13 +80,20 @@ const displayController = (function() {
                 cell.dataset.row = row;
                 cell.dataset.col = col;
                 cell.textContent = board[row][col];
+                if (board[row][col] === "X") {
+                    cell.classList.add("marker-x");
+                } else if (board[row][col] === "O") {
+                    cell.classList.add("marker-o");
+                } else {
+                    cell.classList.add("no-marker");
+                }
                 boardElement.appendChild(cell);
             }
         }
     };
 
     const showMessage = function(message) {
-        messageElement.textContent = message;
+        messageElement.innerHTML = message;
     };
 
     const bindEvents = function() {
@@ -136,7 +143,7 @@ const GameController = (function() {
         GameBoard.createBoard();
         GameController.setPlayers();
         displayController.renderBoard();
-        displayController.showMessage(`${currentPlayer.name}'s turn.`)
+        displayController.showMessage(`${styleMarker(currentPlayer.marker)} ${currentPlayer.name}'s turn.`)
         displayController.bindEvents();
     };
 
@@ -157,7 +164,7 @@ const GameController = (function() {
         if (GameBoard.placeMarker(row, col, currentPlayer.marker)) {
             displayController.renderBoard();
             if (GameBoard.checkWin(currentPlayer.marker)) {
-                displayController.showMessage(`${currentPlayer.name} wins!`);
+                displayController.showMessage(`${styleMarker(currentPlayer.marker)} ${currentPlayer.name} wins!`);
                 displayController.unbindEvents();
                 return;
             } else if (GameBoard.checkDraw()) {
@@ -166,10 +173,19 @@ const GameController = (function() {
                 return;
             }
             switchPlayer();
-            displayController.showMessage(`${currentPlayer.name}'s turn.`);
+            displayController.showMessage(`${styleMarker(currentPlayer.marker)} ${currentPlayer.name}'s turn.`);
         } else {
-            displayController.showMessage(`Grid already taken. ${currentPlayer.name}, try again.`);
+            displayController.showMessage(`Grid already taken. ${styleMarker(currentPlayer.marker)} ${currentPlayer.name}, try again.`);
         }
+    };
+
+    const styleMarker = function(marker) {
+        if (marker === "X") {
+            return `<span class="marker-x">${marker}</span>`;
+        } else if (marker === "O") {
+            return `<span class="marker-o">${marker}</span>`;
+        }
+        return marker;
     };
 
     return {startGame, playRound, setPlayers};
