@@ -3,6 +3,7 @@
 :root {
     --player1-color: #ef4444;
     --player2-color: #06b6d4;
+    --no-marker-color: #f1f5f9;
 }
 
 /* CSS Reset */
@@ -91,10 +92,12 @@ body {
     cursor: pointer;
     font-size: 3rem;
     font-weight: bold;
-
-    color: #f1f5f9;
     background: #2dd4bf;
     border-radius: 10px;
+}
+
+.no-marker {
+    color: var(--no-marker-color);
 }
 
 /* Player Info Dialog */
