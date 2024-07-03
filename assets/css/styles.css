@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+:root {
+    --player1-color: #ef4444;
+    --player2-color: #06b6d4;
+}
+
 /* CSS Reset */
 
 * {
@@ -59,6 +64,14 @@ body {
     font-size: 2rem;
     font-weight: bold;
     color: #ccfbf1;
+}
+
+.marker-x {
+    color: var(--player1-color);
+}
+
+.marker-o {
+    color: var(--player2-color);
 }
 
 /* Board */
@@ -174,10 +187,10 @@ body {
 
 #player-form .input-wrapper1::before {
     content: "X";
-    color:#ef4444
+    color: var(--player1-color);
 }
 
 #player-form .input-wrapper2::before {
     content: "O";
-    color: #06b6d4;
+    color: var(--player2-color);
 }
