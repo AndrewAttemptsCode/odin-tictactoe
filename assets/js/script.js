@@ -116,12 +116,19 @@ const GameController = (function() {
 
     const startGame = function() {
         GameBoard.createBoard();
-        player1 = PlayerModule.createPlayer("Player 1", "X");
-        player2 = PlayerModule.createPlayer("Player 2", "O");
-        currentPlayer = player1;
+        GameController.setPlayers();
         displayController.renderBoard();
         displayController.showMessage(`${currentPlayer.name}'s turn.`)
         displayController.bindEvents();
+    };
+
+    const setPlayers = function() {
+        const customPlayer1 = document.querySelector("#player1").value;
+        const customPlayer2 = document.querySelector("#player2").value;
+
+        player1 = PlayerModule.createPlayer(`${customPlayer1}` || "Player 1", "X");
+        player2 = PlayerModule.createPlayer(`${customPlayer2}` || "Player 2", "O");
+        currentPlayer = player1;
     };
 
     const switchPlayer = function() {
@@ -147,7 +154,7 @@ const GameController = (function() {
         }
     };
 
-    return {startGame, playRound};
+    return {startGame, playRound, setPlayers};
 
 })();
 
@@ -157,4 +164,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resetGame = document.querySelector("#restart");
     resetGame.addEventListener("click", () => GameController.startGame());
+
+    const playerInfo = document.querySelector("#player-info");
+    const playerDialog = document.querySelector("#player-dialog");
+
+    playerInfo.addEventListener("click", () => {
+        playerDialog.showModal();
+    })
+
+    const cancelForm = document.querySelector("#close-dialog");
+    cancelForm.addEventListener("click", () => {
+        playerDialog.close();
+    })
 });
+
+
+const playerForm = document.querySelector("#player-form");
+
+playerForm.addEventListener("submit", () => {
+    GameController.startGame();
+});
+
