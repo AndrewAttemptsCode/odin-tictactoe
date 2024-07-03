@@ -120,6 +120,7 @@ const displayController = (function() {
 
     const handleFormSubmit = function(event) {
         event.preventDefault();
+        closePlayerDialog();
         GameController.startGame();
     };
 
