@@ -144,8 +144,8 @@ const GameController = (function() {
         const customPlayer1 = document.querySelector("#player1").value;
         const customPlayer2 = document.querySelector("#player2").value;
 
-        player1 = PlayerModule.createPlayer(`${customPlayer1}` || "Player 1", "X");
-        player2 = PlayerModule.createPlayer(`${customPlayer2}` || "Player 2", "O");
+        player1 = PlayerModule.createPlayer(customPlayer1 || "Player 1", "X");
+        player2 = PlayerModule.createPlayer(customPlayer2 || "Player 2", "O");
         currentPlayer = player1;
     };
 
